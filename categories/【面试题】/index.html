@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类, 小象博客">
+    <meta name="keywords" content="分类: 【面试题】, 小象博客">
     <meta name="description" content="小象博客">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类 | 小象博客</title>
+    <title>分类: 【面试题】 | 小象博客</title>
     <link rel="icon" type="image/png" href="/1.png">
     
 
@@ -357,7 +357,7 @@
                 
                 <a href="/categories/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91/" title="【面试题】: 2">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
+                             chip-active "
                             style="background-color: #F9EBEA;">【面试题】
                         <span class="tag-length">2</span>
                     </span>
@@ -389,65 +389,119 @@
 
 
     
-    <style type="text/css">
-    #category-radar {
-        width: 100%;
-        height: 360px;
-    }
-</style>
 
-<div class="container" data-aos="fade-up">
-    <div class="card">
-        <div id="category-radar" class="card-content"></div>
-    </div>
-</div>
+    <article id="articles" class="container articles">
+        <div class="row tags-posts">
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2024/07/19/redis-mian-shi-ti-can-kao-hui-da/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Redis面试题（二）">
+                            
+                            <span class="card-title">Redis面试题（二）</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                Redis相关面试题
+面试官：什么是缓存穿透 ? 怎么解决 ?
+候选人：
+嗯~~，我想一下
+缓存穿透是指查询一个一定不存在的数据，如果从存储层查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到 DB 去查询，可能导致 DB 挂掉
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-19
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91/" class="post-category">
+                                    【面试题】
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-<script type="text/javascript" src="/libs/echarts/echarts.min.js"></script>
-<script type="text/javascript">
-    let radarChart = echarts.init(document.getElementById('category-radar'));
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E3%80%90Redis%E3%80%91/">
+                            <span class="chip bg-color">【Redis】</span>
+                        </a>
+                        
+                        <a href="/tags/%E3%80%90%E4%B8%AD%E9%97%B4%E4%BB%B6%E3%80%91/">
+                            <span class="chip bg-color">【中间件】</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2024/07/11/redis-mian-shi-ti-yi/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Redis面试题（一）">
+                            
+                            <span class="card-title">Redis面试题（一）</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                正文介绍：Redis面试题单节点Redis的并发能力是有上限的，要进一步提高Redis的并发能力，就需要搭建主从集群，实现读写分离。这里我们引用黑马虎哥课程的图，如图所示，集群中有一个master节点、两个slave节点（现在叫replic
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-11
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91/" class="post-category">
+                                    【面试题】
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-    
-
-    let option = {
-        title: {
-            left: 'center',
-            text: '文章分类雷达图',
-            textStyle: {
-                fontWeight: 500,
-                fontSize: 22
-            }
-        },
-        tooltip: {},
-        radar: {
-            name: {
-                textStyle: {
-                    color: '#3C4858'
-                }
-            },
-            indicator: [{"name":"【面试题】","max":3},{"name":"【技术栈】","max":3},{"name":"【系统架构】","max":3}],
-            nameGap: 5,
-            center: ['50%','55%'],
-            radius: '66%'
-        },
-        series: [{
-            type: 'radar',
-            color: ['#3ecf8e'],
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data : [
-                {
-                    value : [2,1,2],
-                    name : '文章分类数量'
-                }
-            ]
-        }]
-    };
-
-    radarChart.setOption(option);
-</script>
-
-    
-
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E3%80%90Redis%E3%80%91/">
+                            <span class="chip bg-color">【Redis】</span>
+                        </a>
+                        
+                        <a href="/tags/%E3%80%90%E4%B8%AD%E9%97%B4%E4%BB%B6%E3%80%91/">
+                            <span class="chip bg-color">【中间件】</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </article>
 </main>
+
+
 
 
     <footer class="page-footer bg-color">
