@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="关于DDD架构的介绍与理解（一）, 小象博客">
-    <meta name="description" content="正文分层框架：DDD 概念理论DDD 概念理论（一）定义：DDD架构即领域驱动设计，根据维基百科的参考，DDD 是一种软件设计方法。也就是说 DDD 是指导我们做软件工程设计的一种手段，它提供了用切割工程模型的各类技巧，如；领域、界限上下文">
+    <meta name="keywords" content="关于分库分表组件的设计实现, 小象博客">
+    <meta name="description" content="正文分库分表理解废话不多说直接上图了。首先是配置yml ，然后写了一个默认配置，到时候如果没有DB注解，就走默认。
+12345678910111213141516171819202122232425262728293031323334353">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>关于DDD架构的介绍与理解（一） | 小象博客</title>
+    <title>关于分库分表组件的设计实现 | 小象博客</title>
     <link rel="icon" type="image/png" href="/1.png">
     
 
@@ -290,12 +291,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">关于DDD架构的介绍与理解（一）</h1>
+                    <h1 class="description center-align post-title">关于分库分表组件的设计实现</h1>
                 </div>
             </div>
         </div>
@@ -319,12 +320,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E3%80%90DDD%E6%9E%B6%E6%9E%84%E3%80%91/">
-                                <span class="chip bg-color">【DDD架构】</span>
+                            <a href="/tags/%E3%80%90Mysql%E3%80%91/">
+                                <span class="chip bg-color">【Mysql】</span>
                             </a>
                         
-                            <a href="/tags/%E3%80%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E3%80%91/">
-                                <span class="chip bg-color">【领域驱动设计】</span>
+                            <a href="/tags/%E3%80%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E3%80%91/">
+                                <span class="chip bg-color">【分库分表】</span>
                             </a>
                         
                     </div>
@@ -335,8 +336,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E3%80%90%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E3%80%91/" class="post-category">
-                                【系统架构】
+                            <a href="/categories/%E3%80%90%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%91/" class="post-category">
+                                【技术栈】
                             </a>
                         
                     </div>
@@ -348,28 +349,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-07-18
+                    2024-06-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-07-30
+                    2024-08-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    703
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    3 分
                 </div>
                 
 
@@ -389,9 +390,11 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="分层框架：DDD-概念理论"><a href="#分层框架：DDD-概念理论" class="headerlink" title="分层框架：DDD 概念理论"></a>分层框架：DDD 概念理论</h2><p>DDD 概念理论<br>（一）定义：<br>DDD架构即领域驱动设计，根据维基百科的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Domain-driven_design">参考</a>，DDD 是一种软件设计方法。也就是说 DDD 是指导我们做软件工程设计的一种手段，它提供了用切割工程模型的各类技巧，如；领域、界限上下文、实体、值对象、聚合、工厂、仓储等。通过 DDD 的指导思想，我们可以在前期投入更多的时间，更加合理的规划出可持续迭代的工程设计。<br>（二）具体解释<br>领域驱动设计（<code>Domain Driven Design，简称 DDD</code>），下面我们分别去介绍一下三者。<br>什么是领域：领域即指某一具体的范围，例如医疗领域，电商领域等，是一个较大的概念。<br>什么是驱动：问题域驱动领域去建模，从而驱动技术实现。<br>什么是设计：即领域模型的设计，用模型去设计，表达现实世界。<br><strong>DDD 核心思想是通过领域驱动设计方法定义领域模型，从而确定业务和应用边界，保证业务模型与代码模型的一致性</strong>。<br>截止此处，可能读者还是对DDD架构处于一个模糊阶段，其实在DDD中最核心的内容就是第一个D，即domain。有了领域自然而然会驱动其余的后续步骤。接下来，我将简单介绍下有关于DDD架构的理论基础，并在下篇文章去做一个具体例子来讲解。<br>（三）基础理论<br><strong>3.1 充血模型</strong><br>指将对象的属性信息与行为逻辑聚合到一个类中，常用的手段如在对象内提供属于当前对象的<code>信息校验</code>、<code>拼装缓存Key</code>等。举个例子，在以往的时候，我们通常在进行数据库操作过程中，会用到缓存，以往的缓存key被存到了单独的一个地方，每一个service都可以调用，也就导致不同的service在用key进行某些拼装存在这样一个问题，不同的人代码拼接逻辑不一样，后期迭代时候容易产生问题。充血模型强调的是将一个领域下的东西聚集在一起。就比如金融计算，只有金融领域需要，就聚合在金融领域即可。这样的方式可以在使用一个对象时，就顺便拿到这个对象的提供的一系列方法信息，所有使用对象的逻辑方法，都不需要自己再次处理同类逻辑。(ps:充血模型，并不是一个类的设计和一个类内的方法设计。充血还可以是整个包结构，一个包下包括了用于实现此包 Service 服务所需的各类零部件（模型、仓储、工厂），也可以被看做充血模型。)<br><strong>3.2 领域模型</strong><br><strong>领域模型</strong>，指特定业务领域内，业务规则、策略以及业务流程的抽象和封装。和以前的最大的区别在于把原有的<code>众多 Service + 数据模型</code>的方式，拆分为独立的有边界的领域模块。每个领域内创建自身所属的；领域对象（实体、聚合、值对象）、仓储服务(DAO 操作)、工厂、端口适配器Port（调用外部接口的手段）等。</p>
-<p><img src="/./asserts/2.png" alt="MVC架构"><br>主要领域内架构介绍：<br>3.2.1 实体、聚合、值对象<br>贫血模型下的开发，多个服务共用一个VO对象作为入参，只要这个对象能把我需要的属性信息带进来就可以了。<br>但在 DDD 的领域模型设计下，领域对象的设计是非常面向对象的。实体、聚合、值对象，三者位于每个领域下的领域对象内，服务于领域内的领域服务。三个对象定义具体如下：<br>–实体：实体对象是具有业务语义且有唯一标识的对象，跟随于领域服务方法的全生命周期对象。如商品下单时候的购物车实体对象，唯一标识就可以是单号。这个对象也通常是领域服务方法的入参对象。实体不仅仅包含数据（状态属性），还包含了相关的行为（功能），并且它的标识在整个生命周期中保持不变。<br>–值对象：这个对象在领域服务方法的生命周期过程内是不可变对象，也没有唯一标识。它是配合实体对象使用。如为实体对象提供对象属性值的描述，比如；一个公司雇员的级别值对象。类似于实体的补充。<br>–聚合对象：对数据库的操作需要使用到多个实体时，可以创建聚合对象。一个聚合对象，代表着一个数据库事务，具有事务一致性。比如创建订单，可以把购物车实体，task实体等相关实体信息进行聚合，此对象是为了实现事务，从而规范地表达出事务一致性。<br>3.2.2 仓储和适配器<br>通常在 <code>Service + 数据模型</code>的设计中，会在 Service 中引入 Redis、RPC、配置中心等各类其他外部服务。但在 DDD 中，通过仓储和适配器以及基础设施层的定义，解耦了这部分内容。作为最基础的服务提供商。<br>3.2.3 触发器<br>在所有的模型都定义完成后，领域业务被串联了。那么接下来则是使用，而使用的方式可以包括；接口（http&#x2F;rpc）、消息监听、定时任务等方式，这些方式统一被定义为触发动作。稍微类似于controller。</p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1436383">https://developer.aliyun.com/article/1436383</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/bookssea/article/details/127248954">https://blog.csdn.net/bookssea/article/details/127248954</a></p>
+                <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="分库分表理解"><a href="#分库分表理解" class="headerlink" title="分库分表理解"></a>分库分表理解</h2><p>废话不多说直接上图了。<br><img src="/./asserts/7.png" alt="设计实现"><br>首先是配置yml ，然后写了一个默认配置，到时候如果没有DB注解，就走默认。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">datasource:</span><br><span class="line">  dbCount: 2</span><br><span class="line">  tbCount: 4</span><br><span class="line">  default: db00</span><br><span class="line">  routerKey: userId</span><br><span class="line">  list: db01,db02</span><br><span class="line">  db00:</span><br><span class="line">    driver-class-name: com.mysql.cj.jdbc.Driver</span><br><span class="line">    url: jdbc:mysql://127.0.0.1:13306/big_market?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC&amp;useSSL=true</span><br><span class="line">    username: root</span><br><span class="line">    password: 123456</span><br><span class="line">    type-class-name: com.zaxxer.hikari.HikariDataSource</span><br><span class="line">    pool:</span><br><span class="line">      pool-name: Retail_HikariCP</span><br><span class="line">      minimum-idle: 15 #最小空闲连接数量</span><br><span class="line">      idle-timeout: 180000 #空闲连接存活最大时间，默认600000（10分钟）</span><br><span class="line">      maximum-pool-size: 25 #连接池最大连接数，默认是10</span><br><span class="line">      auto-commit: true  #此属性控制从池返回的连接的默认自动提交行为,默认值：true</span><br><span class="line">      max-lifetime: 1800000 #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟</span><br><span class="line">      connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000</span><br><span class="line">      connection-test-query: SELECT 1</span><br><span class="line">  db01:</span><br><span class="line">    driver-class-name: com.mysql.cj.jdbc.Driver</span><br><span class="line">    url: jdbc:mysql://127.0.0.1:13306/big_market_01?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC&amp;useSSL=true</span><br><span class="line">    username: root</span><br><span class="line">    password: 123456</span><br><span class="line">    type-class-name: com.zaxxer.hikari.HikariDataSource</span><br><span class="line">    pool:</span><br><span class="line">      pool-name: Retail_HikariCP</span><br><span class="line">      minimum-idle: 15 #最小空闲连接数量</span><br><span class="line">      idle-timeout: 180000 #空闲连接存活最大时间，默认600000（10分钟）</span><br><span class="line">      maximum-pool-size: 25 #连接池最大连接数，默认是10</span><br><span class="line">      auto-commit: true  #此属性控制从池返回的连接的默认自动提交行为,默认值：true</span><br><span class="line">      max-lifetime: 1800000 #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟</span><br><span class="line">      connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000</span><br><span class="line">      connection-test-query: SELECT 1</span><br></pre></td></tr></table></figure>
+<p>然后是获取配置，拿到数据源。数据源创建完成后存放到 <code>DynamicDataSource</code> 中，它是一个继承了 AbstractRoutingDataSource 的实现类，这个类里可以存放和读取相应的具体调用的数据源信息。专门用于动态数据源的，我们到时候数据源选择时候ThrredLocal里是否有key，从而选择正确的数据源。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Bean(&quot;mysqlDataSource&quot;)</span><br><span class="line">    public DataSource createDataSource() &#123;</span><br><span class="line">        // 创建数据源</span><br><span class="line">        Map&lt;Object, Object&gt; targetDataSources = new HashMap&lt;&gt;();</span><br><span class="line">        for (String dbInfo : dataSourceMap.keySet()) &#123;</span><br><span class="line">            Map&lt;String, Object&gt; objMap = dataSourceMap.get(dbInfo);</span><br><span class="line">            // 根据objMap创建DataSourceProperties,遍历objMap根据属性反射创建DataSourceProperties</span><br><span class="line">            DataSource ds = createDataSource(objMap);</span><br><span class="line">            targetDataSources.put(dbInfo, ds);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 设置数据源</span><br><span class="line">        DynamicDataSource dynamicDataSource = new DynamicDataSource();</span><br><span class="line">        dynamicDataSource.setTargetDataSources(targetDataSources);</span><br><span class="line">        // db0为默认数据源</span><br><span class="line">        dynamicDataSource.setDefaultTargetDataSource(createDataSource(defaultDataSourceConfig));</span><br><span class="line"></span><br><span class="line">        return dynamicDataSource;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>然后当到具有某个带有注解的函数执行时候，根据id进行切分，存到threadlocal然后。（切点部分代码很简单，就不提供了）<br>然后重写AbstractRoutingDataSource的determineCurrentLookupKey方法，就是可以动态选择数据源。<br>根据threadlocal存的就可以选择对应数据源。然后被mybatis的intercpter拦截。替换sql即可。</p>
 
                 
             </div>
@@ -418,7 +421,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2024/07/18/guan-yu-ddd-jia-gou-de-jie-shao-yu-li-jie-yi/">http://example.com/2024/07/18/guan-yu-ddd-jia-gou-de-jie-shao-yu-li-jie-yi/</a>
+                    <a href="http://example.com/2024/06/25/fen-ku-fen-biao-de-shi-xian/">http://example.com/2024/06/25/fen-ku-fen-biao-de-shi-xian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -456,12 +459,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E3%80%90DDD%E6%9E%B6%E6%9E%84%E3%80%91/">
-                                    <span class="chip bg-color">【DDD架构】</span>
+                                <a href="/tags/%E3%80%90Mysql%E3%80%91/">
+                                    <span class="chip bg-color">【Mysql】</span>
                                 </a>
                             
-                                <a href="/tags/%E3%80%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E3%80%91/">
-                                    <span class="chip bg-color">【领域驱动设计】</span>
+                                <a href="/tags/%E3%80%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E3%80%91/">
+                                    <span class="chip bg-color">【分库分表】</span>
                                 </a>
                             
                         </div>
@@ -544,63 +547,6 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/07/28/dubbo-yu-feign-bi-jiao/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Dubbo和openFeign比较">
-                        
-                        <span class="card-title">Dubbo和openFeign比较</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-28
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E3%80%90%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%91/" class="post-category">
-                                    【技术栈】
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E3%80%90RPC%E3%80%91/">
-                        <span class="chip bg-color">【RPC】</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E3%80%91/">
-                        <span class="chip bg-color">【分布式】</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%90%E5%BE%AE%E6%9C%8D%E5%8A%A1%E3%80%91/">
-                        <span class="chip bg-color">【微服务】</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
                 <a href="/2024/07/10/guan-yu-mvc-jia-gou-de-jie-shao-yu-li-jie/">
                     <div class="card-image">
                         
@@ -617,9 +563,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-10
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-10
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -637,6 +583,59 @@
                     
                     <a href="/tags/%E3%80%90MVC%E6%9E%B6%E6%9E%84%E3%80%91/">
                         <span class="chip bg-color">【MVC架构】</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/06/21/guan-yu-fen-ku-fen-biao-zu-jian-de-she-ji-si-lu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="关于分库分表组件的设计思路">
+                        
+                        <span class="card-title">关于分库分表组件的设计思路</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E3%80%90%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%91/" class="post-category">
+                                    【技术栈】
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E3%80%90Mysql%E3%80%91/">
+                        <span class="chip bg-color">【Mysql】</span>
+                    </a>
+                    
+                    <a href="/tags/%E3%80%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E3%80%91/">
+                        <span class="chip bg-color">【分库分表】</span>
                     </a>
                     
                 </div>

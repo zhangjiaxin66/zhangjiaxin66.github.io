@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Redis面试题（一）, 小象博客">
-    <meta name="description" content="正文介绍：Redis面试题单节点Redis的并发能力是有上限的，要进一步提高Redis的并发能力，就需要搭建主从集群，实现读写分离。这里我们引用黑马虎哥课程的图，如图所示，集群中有一个master节点、两个slave节点（现在叫replic">
+    <meta name="keywords" content="Mysql实习时期面试题, 小象博客">
+    <meta name="description" content="Mysql相关面试题索引的底层数据结构了解过嘛 ?MySQL的默认的存储引擎InnoDB采用的B+树的数据结构来存储索引，选择B+树的主要的原因是：第一阶数更多，路径更短，第二个磁盘读写代价B+树更低，非叶子节点只存储指针，叶子阶段存储数据">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Redis面试题（一） | 小象博客</title>
+    <title>Mysql实习时期面试题 | 小象博客</title>
     <link rel="icon" type="image/png" href="/1.png">
     
 
@@ -290,12 +290,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Redis面试题（一）</h1>
+                    <h1 class="description center-align post-title">Mysql实习时期面试题</h1>
                 </div>
             </div>
         </div>
@@ -319,12 +319,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E3%80%90Redis%E3%80%91/">
-                                <span class="chip bg-color">【Redis】</span>
+                            <a href="/tags/%E3%80%90Mysql%E3%80%91/">
+                                <span class="chip bg-color">【Mysql】</span>
                             </a>
                         
-                            <a href="/tags/%E3%80%90%E4%B8%AD%E9%97%B4%E4%BB%B6%E3%80%91/">
-                                <span class="chip bg-color">【中间件】</span>
+                            <a href="/tags/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91/">
+                                <span class="chip bg-color">【数据库】</span>
                             </a>
                         
                     </div>
@@ -348,28 +348,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-07-11
+                    2024-03-19
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-07-30
+                    2024-08-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    645
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    4 分
                 </div>
                 
 
@@ -389,18 +389,10 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="介绍：Redis面试题"><a href="#介绍：Redis面试题" class="headerlink" title="介绍：Redis面试题"></a>介绍：Redis面试题</h2><p>单节点Redis的并发能力是有上限的，要进一步提高Redis的并发能力，就需要搭建主从集群，实现读写分离。<br><img src="/./asserts/3.png" alt="主从模式图"><br>这里我们引用黑马虎哥课程的图，如图所示，集群中有一个master节点、两个slave节点（现在叫replica）。当我们通过Redis的Java客户端访问主从集群时，应该做好路由：</p>
-<ul>
-<li>如果是写操作，应该访问master节点，master会自动将数据同步给两个slave节点</li>
-<li>如果是读操作，建议访问各个slave节点，从而分担并发压力</li>
-</ul>
-<h2 id="同步流程："><a href="#同步流程：" class="headerlink" title="同步流程："></a>同步流程：</h2><p>全量同步：主从第一次建立连接时，会执行<strong>全量同步</strong>，将master节点的所有数据都拷贝给slave节点，流程：<br><img src="/./asserts/4.png" alt="全量同步"><br>这里有一个问题，<code>master</code>如何得知<code>salve</code>是否是第一次来同步呢？？<br>有几个概念，可以作为判断依据：</p>
-<ul>
-<li><code>**Replication Id**</code>：简称<code>replid</code>，是数据集的标记，replid一致则是同一数据集。每个<code>master</code>都有唯一的<code>replid</code>，<code>slave</code>则会继承<code>master</code>节点的<code>replid</code></li>
-<li><code>**offset**</code>：偏移量，随着记录在<code>repl_baklog</code>中的数据增多而逐渐增大。<code>slave</code>完成同步时也会记录当前同步的<code>offset</code>。如果<code>slave</code>的<code>offset</code>小于<code>master</code>的<code>offset</code>，说明<code>slave</code>数据落后于<code>master</code>，需要更新。</li>
-</ul>
-<p>因此<code>slave</code>做数据同步，必须向<code>master</code>声明自己的<code>replication id </code>和<code>offset</code>，<code>master</code>才可以判断到底需要同步哪些数据。<br>由于我们在执行<code>slaveof</code>命令之前，所有redis节点都是<code>master</code>，有自己的<code>replid</code>和<code>offset</code>。<br>当我们第一次执行<code>slaveof</code>命令，与<code>master</code>建立主从关系时，发送的<code>replid</code>和<code>offset</code>是自己的，与<code>master</code>肯定不一致。<br><code>master</code>判断发现<code>slave</code>发送来的<code>replid</code>与自己的不一致，说明这是一个全新的slave，就知道要做全量同步了。<br><code>master</code>会将自己的<code>replid</code>和<code>offset</code>都发送给这个<code>slave</code>，<code>slave</code>保存这些信息到本地。自此以后<code>slave</code>的<code>replid</code>就与<code>master</code>一致了。<br>因此，<strong>master判断一个节点是否是第一次同步的依据，就是看replid是否一致</strong>。</p>
-<p>增量同步：<br>全量同步需要先做RDB，然后将RDB文件通过网络传输个slave，成本太高了。因此除了第一次做全量同步，其它大多数时候slave与master都是做<strong>增量同步</strong>。<br>什么是增量同步？就是只更新slave与master存在差异的部分数据。如图：<br><img src="/./asserts/5.png" alt="增量同步"><br>master怎么知道slave与自己的数据差异在哪里呢?参考：repl_baklog原理（<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_45406092/article/details/116003133%EF%BC%89">https://blog.csdn.net/m0_45406092/article/details/116003133）</a><br>图片来源：<a target="_blank" rel="noopener" href="https://space.bilibili.com/37974444">https://space.bilibili.com/37974444</a></p>
+                <h1 id="Mysql相关面试题"><a href="#Mysql相关面试题" class="headerlink" title="Mysql相关面试题"></a>Mysql相关面试题</h1><p>索引的底层数据结构了解过嘛 ?<br>MySQL的默认的存储引擎InnoDB采用的B+树的数据结构来存储索引，选择B+树的主要的原因是：第一阶数更多，路径更短，第二个磁盘读写代价B+树更低，非叶子节点只存储指针，叶子阶段存储数据，第三是B+树便于扫库和区间查询，叶子节点是一个双向链表。<br>联合索引*（最左原则）<br>使用表中的多个字段创建索引，就是 <strong>联合索引。</strong>在使用联合索引时，<strong>MySQL</strong>会根据联合索引中的字段顺序，从左到右依次到查询条件中去匹配，如果查询条件中存在与联合索引中最左侧字段相匹配的字段，则就会使用该字段过滤一批数据，直至联合索引中全部字段匹配完成，或者在执行过程中遇到范围查询（如 <strong>&gt;<strong>、</strong>&lt;**）才会停止匹配。对于 **&gt;&#x3D;<strong>、</strong>&lt;&#x3D;<strong>、</strong>BETWEEN</strong>、<strong>like</strong>前缀匹配的范围查询，并不会停止匹配。所以，我们在使用联合索引时，可以将区分度高的字段放在最左边，这也可以过滤更多数据。</p>
+<p>三大日志：binlog、redo log和undo log<br><code>MySQL</code>数据库的<strong>数据备份、主备、主主、主从</strong>都离不开<code>binlog</code>，需要依靠<code>binlog</code>来同步数据，保证数据一致性。</p>
+<p>事务的隔离性是由锁和mvcc实现的。<br>其中mvcc的意思是多版本并发控制。指维护一个数据的多个版本，使得读写操作没有冲突，它的底层实现主要是分为了三个部分，第一个是隐藏字段，第二个是undo log日志，第三个是readView读视图<br>**隐藏字段是指：在mysql中给每个表都设置了隐藏字段，有一个是trx_id(事 务id)，记录每一次操作的事务id，是自增的；另一个字段是roll_pointer(回 滚指针)，指向上一个版本的事务版本记录地址<br>**undo log主要的作用是记录回滚日志，存储老版本数据，在内部会形成一个版本链，在多个事务并行操作某一行记录，记录不同事务修改数据的版本，通过roll_pointer指针形成一个链表<br>**readView解决的是一个事务查询选择版本的问题，在内部定义了一些匹配规<br>则和当前的一些事务id判断该访问那个版本的数据。<br>并发事务带来哪些问题？<br>第一是脏读， 当一个事务正在访问数据并且对数据进行了修改，而这种修改还没有提交到数据库中，这时另外一个事务也访问了这个数据，因为这个数据是还没有提交的数据，那么另外一个事务读到的这个数据是“脏数据”，依据“脏数据”所做的操作可能是不正确的。<br>第二是不可重复读：比如在一个事务内多次读同一数据。在这个事务还没有结束时，另一个事务也访问该数据。那么，在第一个事务中的两次读数据之间，由于第二个事务的修改导致第一个事务两次读取的数据可能不太一样。 这就发生了在一个事务内两次读到的数据是不一样的情况，因此称为不可重 复读。<br>第三是幻读（Phantom read）：幻读与不可重复读类似。它发生在一个事务（T1）读取了几行数据，接着另一个并发事务（T2）插入了一些数据时。在随后的查询中，第一个事务（T1）就会发现多了一些原本不存在的记录，就好像发生了幻觉一样，所以称为幻读。 </p>
+<p>怎么解决这些问题呢？MySQL的默认隔离级别是？<br>解决方案是对事务进行隔离<br>MySQL支持四种隔离级别，分别有：<br>·  **READ-UNCOMMITTED(读取未提交)**：最低的隔离级别，允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。<br>·  **READ-COMMITTED(读取已提交)**：允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍有可能发生。<br>·  **REPEATABLE-READ(可重复读)**：对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生。<br>·  **SERIALIZABLE(可串行化)**：最高的隔离级别，完全服从 ACID 的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读。</p>
 
                 
             </div>
@@ -427,7 +419,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2024/07/11/redis-mian-shi-ti-yi/">http://example.com/2024/07/11/redis-mian-shi-ti-yi/</a>
+                    <a href="http://example.com/2024/03/19/mysql-mian-shi-ti-ge-ren-jian-dan-ban/">http://example.com/2024/03/19/mysql-mian-shi-ti-ge-ren-jian-dan-ban/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -465,12 +457,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E3%80%90Redis%E3%80%91/">
-                                    <span class="chip bg-color">【Redis】</span>
+                                <a href="/tags/%E3%80%90Mysql%E3%80%91/">
+                                    <span class="chip bg-color">【Mysql】</span>
                                 </a>
                             
-                                <a href="/tags/%E3%80%90%E4%B8%AD%E9%97%B4%E4%BB%B6%E3%80%91/">
-                                    <span class="chip bg-color">【中间件】</span>
+                                <a href="/tags/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91/">
+                                    <span class="chip bg-color">【数据库】</span>
                                 </a>
                             
                         </div>
@@ -553,13 +545,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/07/18/guan-yu-ddd-jia-gou-de-jie-shao-yu-li-jie-yi/">
+                <a href="/2024/05/11/redis-mian-shi-ti-yi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="关于DDD架构的介绍与理解（一）">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Redis面试题（一）">
                         
-                        <span class="card-title">关于DDD架构的介绍与理解（一）</span>
+                        <span class="card-title">Redis面试题（一）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -570,14 +562,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-18
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-05-11
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E3%80%90%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E3%80%91/" class="post-category">
-                                    【系统架构】
+                            <a href="/categories/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91/" class="post-category">
+                                    【面试题】
                                 </a>
                             
                             
@@ -587,12 +579,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%90DDD%E6%9E%B6%E6%9E%84%E3%80%91/">
-                        <span class="chip bg-color">【DDD架构】</span>
+                    <a href="/tags/%E3%80%90Redis%E3%80%91/">
+                        <span class="chip bg-color">【Redis】</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E3%80%91/">
-                        <span class="chip bg-color">【领域驱动设计】</span>
+                    <a href="/tags/%E3%80%90%E4%B8%AD%E9%97%B4%E4%BB%B6%E3%80%91/">
+                        <span class="chip bg-color">【中间件】</span>
                     </a>
                     
                 </div>
@@ -603,16 +595,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2024/07/10/guan-yu-mvc-jia-gou-de-jie-shao-yu-li-jie/">
+                <a href="/2024/03/19/mysql-mian-shi-ti-ge-ren-jian-dan-ban/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="关于MVC架构的介绍与理解">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Mysql实习时期面试题">
                         
-                        <span class="card-title">关于MVC架构的介绍与理解</span>
+                        <span class="card-title">Mysql实习时期面试题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -623,25 +615,30 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-19
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E3%80%90%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E3%80%91/" class="post-category">
-                                    【系统架构】
+                            <a href="/categories/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91/" class="post-category">
+                                    【面试题】
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%90MVC%E6%9E%B6%E6%9E%84%E3%80%91/">
-                        <span class="chip bg-color">【MVC架构】</span>
+                    <a href="/tags/%E3%80%90Mysql%E3%80%91/">
+                        <span class="chip bg-color">【Mysql】</span>
+                    </a>
+                    
+                    <a href="/tags/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91/">
+                        <span class="chip bg-color">【数据库】</span>
                     </a>
                     
                 </div>
@@ -804,63 +801,9 @@
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
-
-    
 
     <div class="container row center-align"
-         style="margin-bottom: 0px !important;">
+         style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
@@ -891,6 +834,60 @@
             <br>
 
             <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
             
             <br>
             
@@ -1092,10 +1089,6 @@ $(function () {
     <!-- 鼠标星星特效 -->
     
 
-     
-        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
-        <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
     
 
     <!-- Baidu Analytics -->

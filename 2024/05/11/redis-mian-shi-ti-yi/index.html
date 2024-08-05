@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="关于DDD架构的介绍与理解（一）, 小象博客">
-    <meta name="description" content="正文分层框架：DDD 概念理论DDD 概念理论（一）定义：DDD架构即领域驱动设计，根据维基百科的参考，DDD 是一种软件设计方法。也就是说 DDD 是指导我们做软件工程设计的一种手段，它提供了用切割工程模型的各类技巧，如；领域、界限上下文">
+    <meta name="keywords" content="Redis面试题（一）, 小象博客">
+    <meta name="description" content="正文介绍：Redis面试题单节点Redis的并发能力是有上限的，要进一步提高Redis的并发能力，就需要搭建主从集群，实现读写分离。这里我们引用黑马虎哥课程的图，如图所示，集群中有一个master节点、两个slave节点（现在叫replic">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>关于DDD架构的介绍与理解（一） | 小象博客</title>
+    <title>Redis面试题（一） | 小象博客</title>
     <link rel="icon" type="image/png" href="/1.png">
     
 
@@ -290,12 +290,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">关于DDD架构的介绍与理解（一）</h1>
+                    <h1 class="description center-align post-title">Redis面试题（一）</h1>
                 </div>
             </div>
         </div>
@@ -319,12 +319,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E3%80%90DDD%E6%9E%B6%E6%9E%84%E3%80%91/">
-                                <span class="chip bg-color">【DDD架构】</span>
+                            <a href="/tags/%E3%80%90Redis%E3%80%91/">
+                                <span class="chip bg-color">【Redis】</span>
                             </a>
                         
-                            <a href="/tags/%E3%80%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E3%80%91/">
-                                <span class="chip bg-color">【领域驱动设计】</span>
+                            <a href="/tags/%E3%80%90%E4%B8%AD%E9%97%B4%E4%BB%B6%E3%80%91/">
+                                <span class="chip bg-color">【中间件】</span>
                             </a>
                         
                     </div>
@@ -335,8 +335,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E3%80%90%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E3%80%91/" class="post-category">
-                                【系统架构】
+                            <a href="/categories/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91/" class="post-category">
+                                【面试题】
                             </a>
                         
                     </div>
@@ -348,28 +348,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-07-18
+                    2024-05-11
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-07-30
+                    2024-08-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    645
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    2 分
                 </div>
                 
 
@@ -389,9 +389,18 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="分层框架：DDD-概念理论"><a href="#分层框架：DDD-概念理论" class="headerlink" title="分层框架：DDD 概念理论"></a>分层框架：DDD 概念理论</h2><p>DDD 概念理论<br>（一）定义：<br>DDD架构即领域驱动设计，根据维基百科的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Domain-driven_design">参考</a>，DDD 是一种软件设计方法。也就是说 DDD 是指导我们做软件工程设计的一种手段，它提供了用切割工程模型的各类技巧，如；领域、界限上下文、实体、值对象、聚合、工厂、仓储等。通过 DDD 的指导思想，我们可以在前期投入更多的时间，更加合理的规划出可持续迭代的工程设计。<br>（二）具体解释<br>领域驱动设计（<code>Domain Driven Design，简称 DDD</code>），下面我们分别去介绍一下三者。<br>什么是领域：领域即指某一具体的范围，例如医疗领域，电商领域等，是一个较大的概念。<br>什么是驱动：问题域驱动领域去建模，从而驱动技术实现。<br>什么是设计：即领域模型的设计，用模型去设计，表达现实世界。<br><strong>DDD 核心思想是通过领域驱动设计方法定义领域模型，从而确定业务和应用边界，保证业务模型与代码模型的一致性</strong>。<br>截止此处，可能读者还是对DDD架构处于一个模糊阶段，其实在DDD中最核心的内容就是第一个D，即domain。有了领域自然而然会驱动其余的后续步骤。接下来，我将简单介绍下有关于DDD架构的理论基础，并在下篇文章去做一个具体例子来讲解。<br>（三）基础理论<br><strong>3.1 充血模型</strong><br>指将对象的属性信息与行为逻辑聚合到一个类中，常用的手段如在对象内提供属于当前对象的<code>信息校验</code>、<code>拼装缓存Key</code>等。举个例子，在以往的时候，我们通常在进行数据库操作过程中，会用到缓存，以往的缓存key被存到了单独的一个地方，每一个service都可以调用，也就导致不同的service在用key进行某些拼装存在这样一个问题，不同的人代码拼接逻辑不一样，后期迭代时候容易产生问题。充血模型强调的是将一个领域下的东西聚集在一起。就比如金融计算，只有金融领域需要，就聚合在金融领域即可。这样的方式可以在使用一个对象时，就顺便拿到这个对象的提供的一系列方法信息，所有使用对象的逻辑方法，都不需要自己再次处理同类逻辑。(ps:充血模型，并不是一个类的设计和一个类内的方法设计。充血还可以是整个包结构，一个包下包括了用于实现此包 Service 服务所需的各类零部件（模型、仓储、工厂），也可以被看做充血模型。)<br><strong>3.2 领域模型</strong><br><strong>领域模型</strong>，指特定业务领域内，业务规则、策略以及业务流程的抽象和封装。和以前的最大的区别在于把原有的<code>众多 Service + 数据模型</code>的方式，拆分为独立的有边界的领域模块。每个领域内创建自身所属的；领域对象（实体、聚合、值对象）、仓储服务(DAO 操作)、工厂、端口适配器Port（调用外部接口的手段）等。</p>
-<p><img src="/./asserts/2.png" alt="MVC架构"><br>主要领域内架构介绍：<br>3.2.1 实体、聚合、值对象<br>贫血模型下的开发，多个服务共用一个VO对象作为入参，只要这个对象能把我需要的属性信息带进来就可以了。<br>但在 DDD 的领域模型设计下，领域对象的设计是非常面向对象的。实体、聚合、值对象，三者位于每个领域下的领域对象内，服务于领域内的领域服务。三个对象定义具体如下：<br>–实体：实体对象是具有业务语义且有唯一标识的对象，跟随于领域服务方法的全生命周期对象。如商品下单时候的购物车实体对象，唯一标识就可以是单号。这个对象也通常是领域服务方法的入参对象。实体不仅仅包含数据（状态属性），还包含了相关的行为（功能），并且它的标识在整个生命周期中保持不变。<br>–值对象：这个对象在领域服务方法的生命周期过程内是不可变对象，也没有唯一标识。它是配合实体对象使用。如为实体对象提供对象属性值的描述，比如；一个公司雇员的级别值对象。类似于实体的补充。<br>–聚合对象：对数据库的操作需要使用到多个实体时，可以创建聚合对象。一个聚合对象，代表着一个数据库事务，具有事务一致性。比如创建订单，可以把购物车实体，task实体等相关实体信息进行聚合，此对象是为了实现事务，从而规范地表达出事务一致性。<br>3.2.2 仓储和适配器<br>通常在 <code>Service + 数据模型</code>的设计中，会在 Service 中引入 Redis、RPC、配置中心等各类其他外部服务。但在 DDD 中，通过仓储和适配器以及基础设施层的定义，解耦了这部分内容。作为最基础的服务提供商。<br>3.2.3 触发器<br>在所有的模型都定义完成后，领域业务被串联了。那么接下来则是使用，而使用的方式可以包括；接口（http&#x2F;rpc）、消息监听、定时任务等方式，这些方式统一被定义为触发动作。稍微类似于controller。</p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1436383">https://developer.aliyun.com/article/1436383</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/bookssea/article/details/127248954">https://blog.csdn.net/bookssea/article/details/127248954</a></p>
+                <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="介绍：Redis面试题"><a href="#介绍：Redis面试题" class="headerlink" title="介绍：Redis面试题"></a>介绍：Redis面试题</h2><p>单节点Redis的并发能力是有上限的，要进一步提高Redis的并发能力，就需要搭建主从集群，实现读写分离。<br><img src="/./asserts/3.png" alt="主从模式图"><br>这里我们引用黑马虎哥课程的图，如图所示，集群中有一个master节点、两个slave节点（现在叫replica）。当我们通过Redis的Java客户端访问主从集群时，应该做好路由：</p>
+<ul>
+<li>如果是写操作，应该访问master节点，master会自动将数据同步给两个slave节点</li>
+<li>如果是读操作，建议访问各个slave节点，从而分担并发压力</li>
+</ul>
+<h2 id="同步流程："><a href="#同步流程：" class="headerlink" title="同步流程："></a>同步流程：</h2><p>全量同步：主从第一次建立连接时，会执行<strong>全量同步</strong>，将master节点的所有数据都拷贝给slave节点，流程：<br><img src="/./asserts/4.png" alt="全量同步"><br>这里有一个问题，<code>master</code>如何得知<code>salve</code>是否是第一次来同步呢？？<br>有几个概念，可以作为判断依据：</p>
+<ul>
+<li><code>**Replication Id**</code>：简称<code>replid</code>，是数据集的标记，replid一致则是同一数据集。每个<code>master</code>都有唯一的<code>replid</code>，<code>slave</code>则会继承<code>master</code>节点的<code>replid</code></li>
+<li><code>**offset**</code>：偏移量，随着记录在<code>repl_baklog</code>中的数据增多而逐渐增大。<code>slave</code>完成同步时也会记录当前同步的<code>offset</code>。如果<code>slave</code>的<code>offset</code>小于<code>master</code>的<code>offset</code>，说明<code>slave</code>数据落后于<code>master</code>，需要更新。</li>
+</ul>
+<p>因此<code>slave</code>做数据同步，必须向<code>master</code>声明自己的<code>replication id </code>和<code>offset</code>，<code>master</code>才可以判断到底需要同步哪些数据。<br>由于我们在执行<code>slaveof</code>命令之前，所有redis节点都是<code>master</code>，有自己的<code>replid</code>和<code>offset</code>。<br>当我们第一次执行<code>slaveof</code>命令，与<code>master</code>建立主从关系时，发送的<code>replid</code>和<code>offset</code>是自己的，与<code>master</code>肯定不一致。<br><code>master</code>判断发现<code>slave</code>发送来的<code>replid</code>与自己的不一致，说明这是一个全新的slave，就知道要做全量同步了。<br><code>master</code>会将自己的<code>replid</code>和<code>offset</code>都发送给这个<code>slave</code>，<code>slave</code>保存这些信息到本地。自此以后<code>slave</code>的<code>replid</code>就与<code>master</code>一致了。<br>因此，<strong>master判断一个节点是否是第一次同步的依据，就是看replid是否一致</strong>。</p>
+<p>增量同步：<br>全量同步需要先做RDB，然后将RDB文件通过网络传输个slave，成本太高了。因此除了第一次做全量同步，其它大多数时候slave与master都是做<strong>增量同步</strong>。<br>什么是增量同步？就是只更新slave与master存在差异的部分数据。如图：<br><img src="/./asserts/5.png" alt="增量同步"><br>master怎么知道slave与自己的数据差异在哪里呢?参考：repl_baklog原理（<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_45406092/article/details/116003133%EF%BC%89">https://blog.csdn.net/m0_45406092/article/details/116003133）</a><br>图片来源：<a target="_blank" rel="noopener" href="https://space.bilibili.com/37974444">https://space.bilibili.com/37974444</a></p>
 
                 
             </div>
@@ -418,7 +427,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2024/07/18/guan-yu-ddd-jia-gou-de-jie-shao-yu-li-jie-yi/">http://example.com/2024/07/18/guan-yu-ddd-jia-gou-de-jie-shao-yu-li-jie-yi/</a>
+                    <a href="http://example.com/2024/05/11/redis-mian-shi-ti-yi/">http://example.com/2024/05/11/redis-mian-shi-ti-yi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -456,12 +465,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E3%80%90DDD%E6%9E%B6%E6%9E%84%E3%80%91/">
-                                    <span class="chip bg-color">【DDD架构】</span>
+                                <a href="/tags/%E3%80%90Redis%E3%80%91/">
+                                    <span class="chip bg-color">【Redis】</span>
                                 </a>
                             
-                                <a href="/tags/%E3%80%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E3%80%91/">
-                                    <span class="chip bg-color">【领域驱动设计】</span>
+                                <a href="/tags/%E3%80%90%E4%B8%AD%E9%97%B4%E4%BB%B6%E3%80%91/">
+                                    <span class="chip bg-color">【中间件】</span>
                                 </a>
                             
                         </div>
@@ -544,13 +553,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/07/28/dubbo-yu-feign-bi-jiao/">
+                <a href="/2024/05/17/redis-mian-shi-ti-er/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Dubbo和openFeign比较">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Redis面试题（二）">
                         
-                        <span class="card-title">Dubbo和openFeign比较</span>
+                        <span class="card-title">Redis面试题（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -561,14 +570,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-05-17
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E3%80%90%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%91/" class="post-category">
-                                    【技术栈】
+                            <a href="/categories/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91/" class="post-category">
+                                    【面试题】
                                 </a>
                             
                             
@@ -578,16 +587,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%90RPC%E3%80%91/">
-                        <span class="chip bg-color">【RPC】</span>
+                    <a href="/tags/%E3%80%90Redis%E3%80%91/">
+                        <span class="chip bg-color">【Redis】</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E3%80%91/">
-                        <span class="chip bg-color">【分布式】</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%90%E5%BE%AE%E6%9C%8D%E5%8A%A1%E3%80%91/">
-                        <span class="chip bg-color">【微服务】</span>
+                    <a href="/tags/%E3%80%90%E4%B8%AD%E9%97%B4%E4%BB%B6%E3%80%91/">
+                        <span class="chip bg-color">【中间件】</span>
                     </a>
                     
                 </div>
@@ -601,13 +606,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/07/10/guan-yu-mvc-jia-gou-de-jie-shao-yu-li-jie/">
+                <a href="/2024/03/19/mysql-mian-shi-ti-ge-ren-jian-dan-ban/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="关于MVC架构的介绍与理解">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Mysql实习时期面试题">
                         
-                        <span class="card-title">关于MVC架构的介绍与理解</span>
+                        <span class="card-title">Mysql实习时期面试题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -618,14 +623,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-19
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E3%80%90%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E3%80%91/" class="post-category">
-                                    【系统架构】
+                            <a href="/categories/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91/" class="post-category">
+                                    【面试题】
                                 </a>
                             
                             
@@ -635,8 +640,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%90MVC%E6%9E%B6%E6%9E%84%E3%80%91/">
-                        <span class="chip bg-color">【MVC架构】</span>
+                    <a href="/tags/%E3%80%90Mysql%E3%80%91/">
+                        <span class="chip bg-color">【Mysql】</span>
+                    </a>
+                    
+                    <a href="/tags/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91/">
+                        <span class="chip bg-color">【数据库】</span>
                     </a>
                     
                 </div>
