@@ -4,9 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="关于分库分表组件的设计实现, 小象博客">
-    <meta name="description" content="正文分库分表理解废话不多说直接上图了。首先是配置yml ，然后写了一个默认配置，到时候如果没有DB注解，就走默认。
-12345678910111213141516171819202122232425262728293031323334353">
+    <meta name="keywords" content="温习设计模式之工厂设计模式, 小象博客">
+    <meta name="description" content="正文工厂设计模式营销场景下的业务。在营销场景中经常会有某个用户做了一些操作；打卡、分享、留言、邀请注册等等，进行返利积分，最后通过积分再兑换商品，从而促活和拉新。那么在这里我们模拟积分兑换中的发放多种类型商品，假如现在我们有如下三种类型的商">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>关于分库分表组件的设计实现 | 小象博客</title>
+    <title>温习设计模式之工厂设计模式 | 小象博客</title>
     <link rel="icon" type="image/png" href="/1.png">
     
 
@@ -291,12 +290,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">关于分库分表组件的设计实现</h1>
+                    <h1 class="description center-align post-title">温习设计模式之工厂设计模式</h1>
                 </div>
             </div>
         </div>
@@ -320,12 +319,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E3%80%90Mysql%E3%80%91/">
-                                <span class="chip bg-color">【Mysql】</span>
-                            </a>
-                        
-                            <a href="/tags/%E3%80%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E3%80%91/">
-                                <span class="chip bg-color">【分库分表】</span>
+                            <a href="/tags/%E3%80%90%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%91/">
+                                <span class="chip bg-color">【工厂设计模式】</span>
                             </a>
                         
                     </div>
@@ -336,8 +331,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E3%80%90%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%91/" class="post-category">
-                                【技术栈】
+                            <a href="/categories/%E3%80%90%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%91/" class="post-category">
+                                【设计模式】
                             </a>
                         
                     </div>
@@ -349,28 +344,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-06-25
+                    2024-06-11
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-08-05
+                    2024-08-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    703
+                    394
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    1 分
                 </div>
                 
 
@@ -390,11 +385,26 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="分库分表理解"><a href="#分库分表理解" class="headerlink" title="分库分表理解"></a>分库分表理解</h2><p>废话不多说直接上图了。<br><img src="/./asserts/7.png" alt="设计实现"><br>首先是配置yml ，然后写了一个默认配置，到时候如果没有DB注解，就走默认。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">datasource:</span><br><span class="line">  dbCount: 2</span><br><span class="line">  tbCount: 4</span><br><span class="line">  default: db00</span><br><span class="line">  routerKey: userId</span><br><span class="line">  list: db01,db02</span><br><span class="line">  db00:</span><br><span class="line">    driver-class-name: com.mysql.cj.jdbc.Driver</span><br><span class="line">    url: jdbc:mysql://127.0.0.1:13306/big_market?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC&amp;useSSL=true</span><br><span class="line">    username: root</span><br><span class="line">    password: 123456</span><br><span class="line">    type-class-name: com.zaxxer.hikari.HikariDataSource</span><br><span class="line">    pool:</span><br><span class="line">      pool-name: Retail_HikariCP</span><br><span class="line">      minimum-idle: 15 #最小空闲连接数量</span><br><span class="line">      idle-timeout: 180000 #空闲连接存活最大时间，默认600000（10分钟）</span><br><span class="line">      maximum-pool-size: 25 #连接池最大连接数，默认是10</span><br><span class="line">      auto-commit: true  #此属性控制从池返回的连接的默认自动提交行为,默认值：true</span><br><span class="line">      max-lifetime: 1800000 #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟</span><br><span class="line">      connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000</span><br><span class="line">      connection-test-query: SELECT 1</span><br><span class="line">  db01:</span><br><span class="line">    driver-class-name: com.mysql.cj.jdbc.Driver</span><br><span class="line">    url: jdbc:mysql://127.0.0.1:13306/big_market_01?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC&amp;useSSL=true</span><br><span class="line">    username: root</span><br><span class="line">    password: 123456</span><br><span class="line">    type-class-name: com.zaxxer.hikari.HikariDataSource</span><br><span class="line">    pool:</span><br><span class="line">      pool-name: Retail_HikariCP</span><br><span class="line">      minimum-idle: 15 #最小空闲连接数量</span><br><span class="line">      idle-timeout: 180000 #空闲连接存活最大时间，默认600000（10分钟）</span><br><span class="line">      maximum-pool-size: 25 #连接池最大连接数，默认是10</span><br><span class="line">      auto-commit: true  #此属性控制从池返回的连接的默认自动提交行为,默认值：true</span><br><span class="line">      max-lifetime: 1800000 #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟</span><br><span class="line">      connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000</span><br><span class="line">      connection-test-query: SELECT 1</span><br></pre></td></tr></table></figure>
-<p>然后是获取配置，拿到数据源。数据源创建完成后存放到 <code>DynamicDataSource</code> 中，它是一个继承了 AbstractRoutingDataSource 的实现类，这个类里可以存放和读取相应的具体调用的数据源信息。专门用于动态数据源的，我们到时候数据源选择时候ThrredLocal里是否有key，从而选择正确的数据源。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Bean(&quot;mysqlDataSource&quot;)</span><br><span class="line">    public DataSource createDataSource() &#123;</span><br><span class="line">        // 创建数据源</span><br><span class="line">        Map&lt;Object, Object&gt; targetDataSources = new HashMap&lt;&gt;();</span><br><span class="line">        for (String dbInfo : dataSourceMap.keySet()) &#123;</span><br><span class="line">            Map&lt;String, Object&gt; objMap = dataSourceMap.get(dbInfo);</span><br><span class="line">            // 根据objMap创建DataSourceProperties,遍历objMap根据属性反射创建DataSourceProperties</span><br><span class="line">            DataSource ds = createDataSource(objMap);</span><br><span class="line">            targetDataSources.put(dbInfo, ds);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 设置数据源</span><br><span class="line">        DynamicDataSource dynamicDataSource = new DynamicDataSource();</span><br><span class="line">        dynamicDataSource.setTargetDataSources(targetDataSources);</span><br><span class="line">        // db0为默认数据源</span><br><span class="line">        dynamicDataSource.setDefaultTargetDataSource(createDataSource(defaultDataSourceConfig));</span><br><span class="line"></span><br><span class="line">        return dynamicDataSource;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>然后当到具有某个带有注解的函数执行时候，根据id进行切分，存到threadlocal然后。（切点部分代码很简单，就不提供了）<br>然后重写AbstractRoutingDataSource的determineCurrentLookupKey方法，就是可以动态选择数据源。<br>根据threadlocal存的就可以选择对应数据源。然后被mybatis的intercpter拦截。替换sql即可。</p>
+                <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="工厂设计模式"><a href="#工厂设计模式" class="headerlink" title="工厂设计模式"></a>工厂设计模式</h2><p>营销场景下的业务。在营销场景中经常会有某个用户做了一些操作；打卡、分享、留言、邀请注册等等，进行返利积分，最后通过积分再兑换商品，从而促活和拉新。那么在这里我们模拟积分兑换中的发放多种类型商品，假如现在我们有如下三种类型的商品接口；</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>接口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>优惠券</td>
+<td><code>CouponResult sendCoupon(String uId, String couponNumber, String uuid)</code></td>
+</tr>
+<tr>
+<td>实物商品</td>
+<td><code>Boolean deliverGoods(DeliverReq req)</code></td>
+</tr>
+</tbody></table>
+<p>没设计模式，就用一坨坨代码实现2个if，然后调用两个对象。乍一看很简单，但是随着业务多起来，代码臃肿，耦合在一起，不易维护。这是就可以用工厂。<br>工厂代码：<br>每一种奖品的实现都包括在自己的类中，新增、修改或者删除都不会影响其他奖品功能的测试，降低回归测试的可能。同时可以实现同一个接口。然后通过工厂可以自定义去执行哪个对象（即发奖的东西）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StoreFactory</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ICommodity <span class="title function_">getCommodityService</span><span class="params">(Integer commodityType)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">null</span> == commodityType) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">1</span> == commodityType) <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">CouponCommodityService</span>();</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">2</span> == commodityType) <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">GoodsCommodityService</span>();</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;不存在的商品服务类型&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义了一个商店的工厂类，在里面按照类型实现各种商品的服务。后续新增的商品在这里扩展即可。并且你只需要知道你调用了什么，不需要考虑内部如何实现的。</p>
 
                 
             </div>
@@ -421,7 +431,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2024/06/25/fen-ku-fen-biao-de-shi-xian/">http://example.com/2024/06/25/fen-ku-fen-biao-de-shi-xian/</a>
+                    <a href="http://example.com/2024/06/11/wen-xi-she-ji-mo-shi-zhi-gong-han-she-ji-mo-shi/">http://example.com/2024/06/11/wen-xi-she-ji-mo-shi-zhi-gong-han-she-ji-mo-shi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -459,12 +469,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E3%80%90Mysql%E3%80%91/">
-                                    <span class="chip bg-color">【Mysql】</span>
-                                </a>
-                            
-                                <a href="/tags/%E3%80%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E3%80%91/">
-                                    <span class="chip bg-color">【分库分表】</span>
+                                <a href="/tags/%E3%80%90%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%91/">
+                                    <span class="chip bg-color">【工厂设计模式】</span>
                                 </a>
                             
                         </div>
@@ -547,13 +553,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/07/10/guan-yu-mvc-jia-gou-de-jie-shao-yu-li-jie/">
+                <a href="/2024/06/12/github-ji-ben-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="关于MVC架构的介绍与理解">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="github基本使用">
                         
-                        <span class="card-title">关于MVC架构的介绍与理解</span>
+                        <span class="card-title">github基本使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -564,14 +570,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-10
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-06-12
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E3%80%90%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E3%80%91/" class="post-category">
-                                    【系统架构】
+                            <a href="/categories/%E3%80%90%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0%E3%80%91/" class="post-category">
+                                    【托管平台】
                                 </a>
                             
                             
@@ -581,8 +587,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%90MVC%E6%9E%B6%E6%9E%84%E3%80%91/">
-                        <span class="chip bg-color">【MVC架构】</span>
+                    <a href="/tags/%E3%80%90github%E3%80%91/">
+                        <span class="chip bg-color">【github】</span>
+                    </a>
+                    
+                    <a href="/tags/%E3%80%90%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E3%80%91/">
+                        <span class="chip bg-color">【基础知识】</span>
                     </a>
                     
                 </div>
@@ -596,13 +606,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/06/21/guan-yu-fen-ku-fen-biao-zu-jian-de-she-ji-si-lu/">
+                <a href="/2024/05/17/redis-mian-shi-ti-er/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="关于分库分表组件的设计思路">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Redis面试题（二）">
                         
-                        <span class="card-title">关于分库分表组件的设计思路</span>
+                        <span class="card-title">Redis面试题（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -613,14 +623,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-17
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E3%80%90%E6%8A%80%E6%9C%AF%E6%A0%88%E3%80%91/" class="post-category">
-                                    【技术栈】
+                            <a href="/categories/%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91/" class="post-category">
+                                    【面试题】
                                 </a>
                             
                             
@@ -630,12 +640,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%90Mysql%E3%80%91/">
-                        <span class="chip bg-color">【Mysql】</span>
+                    <a href="/tags/%E3%80%90Redis%E3%80%91/">
+                        <span class="chip bg-color">【Redis】</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E3%80%91/">
-                        <span class="chip bg-color">【分库分表】</span>
+                    <a href="/tags/%E3%80%90%E4%B8%AD%E9%97%B4%E4%BB%B6%E3%80%91/">
+                        <span class="chip bg-color">【中间件】</span>
                     </a>
                     
                 </div>
